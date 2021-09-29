@@ -1,8 +1,7 @@
 const express = require("express");
 const { postgraphile, makePluginHook } = require("postgraphile");
 const httpPlugin = require('./http_plugin');
-const rootQueryPlugin = require('./root_query_plugin');
-const nestedQueryPlugin = require('./nested_query_plugin');
+const queryPlugin = require('./query_plugin');
 
 const app = express();
 const pluginHook = makePluginHook([httpPlugin]);
@@ -21,8 +20,7 @@ app.use(
         }
       },
       appendPlugins: [
-        rootQueryPlugin,
-        nestedQueryPlugin,
+        queryPlugin,
       ],
     }
   )
