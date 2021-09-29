@@ -1,3 +1,7 @@
+alter table name_basics add constraint name_basics_pk primary key (nconst);
+
+alter table title_basics add constraint title_basics_pk primary key (tconst);
+
 alter table title_crew add constraint title_crew_title_basics_fk foreign key (tconst) references title_basics(tconst);
 
 alter table title_episode add constraint title_episode_title_basics_fk foreign key ("parentTconst") references title_basics(tconst) not valid;
