@@ -10,13 +10,15 @@ module.exports = makeWrapResolversPlugin(
         return null;
     },
     ({ scope }) => async (resolver, user, args, context, _resolveInfo) => {
-        const { rootSpan } = context;
+        const { rootSpan, pgClient } = context;
         const span = tracer.startSpan(_resolveInfo.fieldName, { childOf: rootSpan.span });
 
-        span.setTag("args", args);
+        // span.setTag("args", args);
 
         const result = await resolver();
 
+        span.setTag("query", Object.values(pgClient.connection.parsedStatements).join(",\n"))
+        
         span.finish();
 
         return result;
